@@ -12,16 +12,23 @@ export default function ChatBot() {
     {
       id: "1",
       role: "assistant",
-      content:
-        "¡Hola! Soy tu asistente virtual",
+      content: `¡Bienvenido a la Universidad Don Bosco! Soy tu asistente virtual y estoy aquí para ayudarte con:
+    
+    📚 Información académica (calendario, horarios, inscripciones)
+    📖 Biblioteca y recursos del campus
+    🎓 Servicios estudiantiles
+    🤝 Apoyo y bienestar estudiantil
+    💼 Desarrollo profesional
+    🎮 Vida estudiantil y eventos
+    
+    ¿En qué puedo ayudarte?`,
     },
   ])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
-  const inputRef = useRef(null) // Referencia para el input
+  const inputRef = useRef(null)
 
-  // Función de scroll mejorada
   const scrollToBottom = useCallback(() => {
     if (messagesEndRef.current) {
       setTimeout(() => {
@@ -30,22 +37,35 @@ export default function ChatBot() {
     }
   }, [])
 
-  // Función para enfocar el input
   const focusInput = useCallback(() => {
     if (inputRef.current) {
-      inputRef.current.focus()
+      setTimeout(() => {
+        inputRef.current.focus()
+      }, 100)
     }
   }, [])
 
-  // Actualizar el scroll cuando cambian los mensajes
+  // Efecto para scroll y focus después de cada mensaje
   useEffect(() => {
     scrollToBottom()
-    focusInput() // Enfocar el input después de cada mensaje
-  }, [messages, scrollToBottom, focusInput])
+    focusInput()
+  }, [scrollToBottom, focusInput])
 
-  // Enfocar el input al cargar la página
+  // Efecto para focus inicial
   useEffect(() => {
     focusInput()
+  }, [focusInput])
+
+  // Efecto para mantener el focus después de cada interacción
+  useEffect(() => {
+    const handleFocusLoss = () => {
+      if (document.activeElement !== inputRef.current) {
+        focusInput()
+      }
+    }
+
+    document.addEventListener("click", handleFocusLoss)
+    return () => document.removeEventListener("click", handleFocusLoss)
   }, [focusInput])
 
   async function handleSubmit(e) {
@@ -105,7 +125,7 @@ export default function ChatBot() {
       ])
     } finally {
       setIsLoading(false)
-      focusInput() // Enfocar el input después de recibir la respuesta
+      focusInput()
     }
   }
 
@@ -113,7 +133,7 @@ export default function ChatBot() {
     <div className="flex items-center justify-center min-h-screen bg-slate-50 p-4">
       <Card className="w-full max-w-xl shadow-lg">
         <CardHeader className="border-b">
-          <CardTitle className="text-center text-2xl">Asistente Virtual</CardTitle>
+          <CardTitle className="text-center text-2xl">Universidad Don Bosco - Asistente Virtual</CardTitle>
         </CardHeader>
 
         <CardContent className="p-4">
@@ -138,13 +158,13 @@ export default function ChatBot() {
         <CardFooter className="border-t p-4">
           <form onSubmit={handleSubmit} className="flex w-full gap-2">
             <Input
-              ref={inputRef} // Agregar la referencia al input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe tu mensaje..."
+              placeholder="Escribe tu pregunta..."
               className="flex-1"
               disabled={isLoading}
-              autoFocus // Agregar autofocus
+              autoFocus
             />
             <Button type="submit" size="icon" className="rounded-full" disabled={isLoading}>
               <Send className="h-4 w-4" />
