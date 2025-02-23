@@ -79,7 +79,7 @@ const STATES = {
 // Detectar respuestas afirmativas
 const affirmativeResponses = [
   "si",
-  "Si",
+  "sí",
   "yes",
   "claro",
   "por supuesto",
@@ -96,7 +96,32 @@ const affirmativeResponses = [
 ]
 
 function isAffirmativeResponse(message) {
-  return affirmativeResponses.some((response) => message.toLowerCase().includes(response.toLowerCase()))
+  const affirmativeWords = [
+    "si",
+    "sí",
+    "yes",
+    "claro",
+    "por supuesto",
+    "ok",
+    "okay",
+    "dale",
+    "va",
+    "está bien",
+    "esta bien",
+    "me gustaría",
+    "me gustaria",
+    "quiero",
+    "quisiera",
+  ]
+
+  const normalizedMessage = message.toLowerCase().trim()
+  return affirmativeWords.some(
+    (word) =>
+      normalizedMessage === word ||
+      normalizedMessage.startsWith(word + " ") ||
+      normalizedMessage.endsWith(" " + word) ||
+      normalizedMessage.includes(" " + word + " "),
+  )
 }
 
 // Al inicio de la función getResponseByState
@@ -107,53 +132,71 @@ function getResponseByState(messages, sessionId) {
   console.log("Estado actual:", state.step)
   console.log("Último mensaje:", lastMessage)
 
-  // Manejar estados de recolección de datos
-  switch (state.step) {
-    case STATES.COLLECTING_NAME:
-      state.data.name = lastMessage
-      state.step = STATES.COLLECTING_PHONE
-      conversationState.set(sessionId, state)
-      return "¿Cuál es tu número de teléfono para contactarte?"
-
-    case STATES.COLLECTING_PHONE:
-      state.data.phone = lastMessage
-      state.step = STATES.COLLECTING_DATE
-      conversationState.set(sessionId, state)
-      return "¿Qué día y hora te gustaría agendar la cita? (Ejemplo: Lunes 15 de marzo a las 2:00 PM)"
-
-    case STATES.COLLECTING_DATE:
-      state.data.date = lastMessage
-      state.step = STATES.COLLECTING_REASON
-      conversationState.set(sessionId, state)
-      return "¿Cuál es el motivo de tu cita?"
-
-    case STATES.COLLECTING_REASON:
-      state.data.reason = lastMessage
-      state.step = STATES.CONFIRMING_APPOINTMENT
-      conversationState.set(sessionId, state)
-      return `Por favor confirma los siguientes datos para tu cita:
-      
-      Nombre: ${state.data.name}
-      Teléfono: ${state.data.phone}
-      Fecha y hora: ${state.data.date}
-      Motivo: ${state.data.reason}
-      
-      ¿Están correctos los datos? (Responde Sí para confirmar)`
-
-    case STATES.CONFIRMING_APPOINTMENT:
-      if (isAffirmativeResponse(lastMessage)) {
-        state.step = STATES.INITIAL
+  // Si estamos en cualquier estado de recolección de datos, procesarlo primero
+  if (state.step !== STATES.INITIAL) {
+    switch (state.step) {
+      case STATES.COLLECTING_NAME:
+        state.data.name = lastMessage
+        state.step = STATES.COLLECTING_PHONE
         conversationState.set(sessionId, state)
-        return `¡Perfecto! Tu cita ha sido agendada con éxito. 
-        Te contactaremos al ${state.data.phone} para confirmar.
+        return "¿Cuál es tu número de teléfono para contactarte?"
+
+      case STATES.COLLECTING_PHONE:
+        state.data.phone = lastMessage
+        state.step = STATES.COLLECTING_DATE
+        conversationState.set(sessionId, state)
+        return "¿Qué día y hora te gustaría agendar la cita? (Ejemplo: Lunes 15 de marzo a las 2:00 PM)"
+
+      case STATES.COLLECTING_DATE:
+        state.data.date = lastMessage
+        state.step = STATES.COLLECTING_REASON
+        conversationState.set(sessionId, state)
+        return "¿Cuál es el motivo de tu cita?"
+
+      case STATES.COLLECTING_REASON:
+        state.data.reason = lastMessage
+        state.step = STATES.CONFIRMING_APPOINTMENT
+        conversationState.set(sessionId, state)
+        return `Por favor confirma los siguientes datos para tu cita:
         
-        ¿Hay algo más en lo que pueda ayudarte?`
-      } else {
-        state.step = STATES.COLLECTING_NAME
-        state.data = {}
-        conversationState.set(sessionId, state)
-        return "Entiendo, empecemos de nuevo. ¿Cuál es tu nombre completo?"
-      }
+        Nombre: ${state.data.name}
+        Teléfono: ${state.data.phone}
+        Fecha y hora: ${state.data.date}
+        Motivo: ${state.data.reason}
+        
+        ¿Están correctos los datos? (Responde Sí para confirmar)`
+
+      case STATES.CONFIRMING_APPOINTMENT:
+        if (isAffirmativeResponse(lastMessage)) {
+          state.step = STATES.INITIAL
+          conversationState.set(sessionId, state)
+          return `¡Perfecto! Tu cita ha sido agendada con éxito. 
+          Te contactaremos al ${state.data.phone} para confirmar.
+          
+          ¿Hay algo más en lo que pueda ayudarte?`
+        } else {
+          state.step = STATES.COLLECTING_NAME
+          state.data = {}
+          conversationState.set(sessionId, state)
+          return "Entiendo, empecemos de nuevo. ¿Cuál es tu nombre completo?"
+        }
+    }
+  }
+
+  // Verificar si es una respuesta afirmativa a una pregunta de agendamiento
+  if (isAffirmativeResponse(lastMessage)) {
+    const previousMessage = messages[messages.length - 2]?.content?.toLowerCase() || ""
+    if (
+      previousMessage.includes("cita") ||
+      previousMessage.includes("agendar") ||
+      previousMessage.includes("consejero") ||
+      previousMessage.includes("tutoría") ||
+      previousMessage.includes("asesoría")
+    ) {
+      state.step = STATES.COLLECTING_NAME
+      conversationState.set(sessionId, state)
+      return "Por favor, proporciona tu nombre completo para agendar la cita:"
+    }
   }
 
   // Detectar saludos - Expandido
@@ -247,9 +290,19 @@ function getResponseByState(messages, sessionId) {
 
   // Primero verificamos si es un saludo inicial
   if (isSaludo && messages.length <= 2) {
+    const initialMessage = `¡Bienvenido a la Universidad Don Bosco! Soy tu asistente virtual y estoy aquí para ayudarte con:
+
+📚 Información académica (calendario, horarios, inscripciones)
+📖 Biblioteca y recursos del campus
+🎓 Servicios estudiantiles
+🤝 Apoyo y bienestar estudiantil
+💼 Desarrollo profesional
+🎮 Vida estudiantil y eventos
+
+¿En qué puedo ayudarte?`
     const saludosRespuestas = [
       `¡Hola! Soy el asistente virtual de la ${universityInfo.nombre}. Estoy aquí para ayudarte con información sobre servicios estudiantiles, calendario académico, y más.`,
-      `¡Bienvenido a la ${universityInfo.nombre}! Soy tu asistente virtual y puedo ayudarte con cualquier consulta sobre la universidad.`,
+      initialMessage,
       `¡Hola! Gracias por contactar al asistente virtual de la ${universityInfo.nombre}. ¿En qué puedo ayudarte hoy?`,
     ]
     const respuesta = saludosRespuestas[Math.floor(Math.random() * saludosRespuestas.length)]

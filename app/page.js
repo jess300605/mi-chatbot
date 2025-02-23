@@ -13,15 +13,15 @@ export default function ChatBot() {
       id: "1",
       role: "assistant",
       content: `¡Bienvenido a la Universidad Don Bosco! Soy tu asistente virtual y estoy aquí para ayudarte con:
-    
-    📚 Información académica (calendario, horarios, inscripciones)
-    📖 Biblioteca y recursos del campus
-    🎓 Servicios estudiantiles
-    🤝 Apoyo y bienestar estudiantil
-    💼 Desarrollo profesional
-    🎮 Vida estudiantil y eventos
-    
-    ¿En qué puedo ayudarte?`,
+
+📚 Información académica (calendario, horarios, inscripciones)
+📖 Biblioteca y recursos del campus
+🎓 Servicios estudiantiles
+🤝 Apoyo y bienestar estudiantil
+💼 Desarrollo profesional
+🎮 Vida estudiantil y eventos
+
+¿En qué puedo ayudarte?`,
     },
   ])
   const [input, setInput] = useState("")
