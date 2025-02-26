@@ -7,6 +7,12 @@ import { Input } from "@/components/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
+
+// 🔹 Componente para renderizar mensajes con soporte HTML
+function ChatMessage({ message }) {
+  return <p dangerouslySetInnerHTML={{ __html: message }} />
+}
+
 export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
@@ -45,18 +51,15 @@ export default function ChatBot() {
     }
   }, [])
 
-  // Efecto para scroll y focus después de cada mensaje
   useEffect(() => {
     scrollToBottom()
     focusInput()
   }, [scrollToBottom, focusInput])
 
-  // Efecto para focus inicial
   useEffect(() => {
     focusInput()
   }, [focusInput])
 
-  // Efecto para mantener el focus después de cada interacción
   useEffect(() => {
     const handleFocusLoss = () => {
       if (document.activeElement !== inputRef.current) {
@@ -130,9 +133,9 @@ export default function ChatBot() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-slate-50 p-4">
-      <Card className="w-full max-w-xl shadow-lg">
-        <CardHeader className="border-b">
+    <div className="flex items-center justify-center min-h-screen bg-background text-foreground p-4">
+      <Card className="w-full max-w-xl shadow-lg bg-secondary text-secondary-foreground">
+        <CardHeader className="border-b border-border">
           <CardTitle className="text-center text-2xl">Universidad Don Bosco - Asistente Virtual</CardTitle>
         </CardHeader>
 
@@ -143,10 +146,12 @@ export default function ChatBot() {
                 <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
                     className={`rounded-lg px-4 py-2 max-w-[80%] whitespace-pre-line ${
-                      message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                      message.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground"
                     }`}
                   >
-                    {message.content}
+                    <ChatMessage message={message.content} />
                   </div>
                 </div>
               ))}
@@ -155,18 +160,18 @@ export default function ChatBot() {
           </ScrollArea>
         </CardContent>
 
-        <CardFooter className="border-t p-4">
+        <CardFooter className="border-t border-border p-4">
           <form onSubmit={handleSubmit} className="flex w-full gap-2">
             <Input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escribe tu pregunta..."
-              className="flex-1"
+              className="flex-1 bg-input text-foreground border-border"
               disabled={isLoading}
               autoFocus
             />
-            <Button type="submit" size="icon" className="rounded-full" disabled={isLoading}>
+            <Button type="submit" size="icon" className="rounded-full bg-primary hover:bg-primary/80" disabled={isLoading}>
               <Send className="h-4 w-4" />
               <span className="sr-only">Enviar mensaje</span>
             </Button>
@@ -176,4 +181,3 @@ export default function ChatBot() {
     </div>
   )
 }
-

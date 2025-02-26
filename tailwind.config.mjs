@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
@@ -21,23 +21,22 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: "#0D1117", // Fondo oscuro predeterminado
+        foreground: "#161B22", // Texto en modo oscuro
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#173054", // Azul brillante para resaltar
+          foreground: "#d8d8d8",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#161B22", // Gris oscuro para elementos secundarios
+          foreground: "#d8d8d8",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#21262D", // Fondo sutil para tarjetas
+          foreground: "#d8d8d8",
         },
       },
     },
   },
   plugins: [],
-}
-
+};

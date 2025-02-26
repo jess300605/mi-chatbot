@@ -5,63 +5,72 @@ const universityInfo = {
   nombre: "Universidad Don Bosco",
   lema: "Ciencia y Tecnología para el Desarrollo Social",
   calendario: {
-    inicioSemestre: "15 de enero 2024",
-    finSemestre: "15 de mayo 2024",
-    inscripciones: "1-10 de enero 2024",
-    examenesParciales: "1-5 de marzo 2024",
-    examenesFinales: "10-15 de mayo 2024",
+    inicioSemestre: "22 de enero 2025",
+    finSemestre: "07 de junio 2025",
+    inscripciones: "7-15 de diciembre 2024",
+    examenesParciales: [
+      "<br>✔ Primeras evaluaciones: 24 Feb - 01 Mar 2025",
+      "✔ Segundas evaluaciones: 07 Abr - 12 Abr 2025",
+    ],
+    examenesFinales: "19 May - 31 May 2025",
   },
   biblioteca: {
     nombre: "Biblioteca P. Mauricio Gaborit",
     ubicacion: "Edificio P. Mauricio Gaborit, Campus Soyapango",
+    direccion: "https://maps.app.goo.gl/6LaWEhyMpf4rmiWu8",
     horario: "Lunes a Viernes: 7:00 AM - 9:00 PM, Sábados: 8:00 AM - 2:00 PM",
-    servicios: ["Préstamo de libros", "Salas de estudio", "Computadoras", "Impresiones", "Recursos digitales"],
+    servicios: ["<br>✔ Préstamo de libros", "✔ Salas de estudio", "✔ Computadoras", "✔ Impresiones", "✔ Recursos digitales"],
   },
   serviciosEstudiantiles: {
     ubicacion: "Edificio Administrativo, Campus Soyapango",
+    direccion: "https://maps.app.goo.gl/eFYMwBqn4v22NH2P7",
     contacto: "servicios.estudiantiles@udb.edu.sv",
     telefono: "2527-2300",
     horario: "Lunes a Viernes: 8:00 AM - 4:00 PM",
   },
   apoyoEstudiantil: {
     consejeriaAcademica: {
-      ubicacion: "Centro de Desarrollo Integral Estudiantil",
+      ubicacion: "Centro de Desarrollo Integral Estudiantil.",
+      direccion: "https://maps.app.goo.gl/eFYMwBqn4v22NH2P7",
       horario: "Lunes a Viernes: 9:00 AM - 3:00 PM",
-      servicios: ["Orientación académica", "Apoyo emocional", "Manejo del estrés", "Adaptación universitaria"],
+      servicios: ["<br>✔ Orientación académica", "✔ Apoyo emocional", "✔ Manejo del estrés", "✔ Adaptación universitaria."],
     },
     tutorias: {
       ubicacion: "Centro de Tutorías UDB",
-      materias: ["Matemáticas", "Programación", "Física", "Inglés", "Electrónica"],
+      direccion: "https://maps.app.goo.gl/eFYMwBqn4v22NH2P7",
+      materias: ["<br>✔ Matemáticas", "✔ Programación", "✔ Física", "✔ Inglés", "✔ Electrónica."],
       horario: "Lunes a Viernes: 10:00 AM - 6:00 PM",
     },
   },
   desarrolloProfesional: {
-    servicios: ["Asesoría de CV", "Preparación para entrevistas", "Búsqueda de pasantías", "Bolsa de trabajo UDB"],
+    servicios: ["<br>✔ Asesoría de CV", "✔ Preparación para entrevistas", "✔ Búsqueda de pasantías", "✔ Bolsa de trabajo UDB"],
     talleres: [
-      "Escritura de CV - Todos los lunes",
-      "Entrevistas efectivas - Miércoles",
-      "LinkedIn para profesionales - Viernes",
-      "Emprendimiento UDB - Jueves",
+      "✔ Escritura de CV - Todos los lunes",
+      "✔ Entrevistas efectivas - Miércoles",
+      "✔ LinkedIn para profesionales - Viernes",
+      "✔ Emprendimiento UDB - Jueves",
     ],
     contacto: "carreras@udb.edu.sv",
   },
   vidaEstudiantil: {
     clubes: [
-      "Club de Programación UDB",
-      "Sociedad de IA y Robótica",
-      "Club de Desarrollo Web",
-      "Grupo de Investigación Tecnológica",
-      "Club de Emprendimiento",
+      "✔ Club de Programación UDB",
+      "✔ Sociedad de IA y Robótica",
+      "✔ Club de Desarrollo Web",
+      "✔ Grupo de Investigación Tecnológica",
+      "✔ Club de Emprendimiento",
     ],
     alimentacion: {
-      cafeterias: ["Cafetería Central UDB", "Café Express", "Food Court Bosco"],
-      horario: "7:00 AM - 7:00 PM",
+      cafeterias: ["<br>✔ Cafetería Central UDB", "✔ Café Express", "✔ Food Court Bosco"],
+      horario: "6:00 AM - 5:00 PM",
+      direccion1: "https://maps.app.goo.gl/co1zy9QRm3vn89vUA",
+      direccion2: "https://maps.app.goo.gl/wqcFYCbqefZ4nZay8",
     },
     eventos: [
-      "Hackathon UDB - 20 de marzo",
-      "Feria de Tecnología - 15 de abril",
-      "Competencia de Programación - 5 de mayo",
-      "Semana del Estudiante UDB - 10-15 de mayo",
+      "✔ Hackathon UDB - 20 de marzo",
+      "✔ Feria de Tecnología - 15 de abril",
+      "✔ Competencia de Programación - 5 de mayo",
+      "✔ Semana del Estudiante UDB - 10-15 de mayo",
     ],
   },
 }
@@ -164,7 +173,7 @@ function getResponseByState(messages, sessionId) {
         Fecha y hora: ${state.data.date}
         Motivo: ${state.data.reason}
         
-        ¿Están correctos los datos? (Responde Sí para confirmar)`
+        ¿Están correctos los datos? (Responde "Sí" para confirmar)`
 
       case STATES.CONFIRMING_APPOINTMENT:
         if (isAffirmativeResponse(lastMessage)) {
@@ -219,11 +228,7 @@ function getResponseByState(messages, sessionId) {
     "buen dia",
     "qué onda",
     "que onda",
-    "qué más",
-    "que mas",
-    "buenas",
-    "alo",
-    "aló",
+    "que ondas",
   ]
   const isSaludo = saludos.some((saludo) => lastMessage.includes(saludo))
 
@@ -269,18 +274,23 @@ function getResponseByState(messages, sessionId) {
 
   // Resto del código de detección de palabras clave...
   const keywords = {
-    calendario: ["calendario", "fechas", "semestre", "inscripción", "inscripciones", "examenes", "parciales"],
+    calendario: ["calendario", "fechas", "semestre", "inscripción", "inscripciones", "examenes", "parciales",
+      "fecha", "examen", "parcial", "inicio de ciclo", "final de ciclo", "inicio", "final", "horario", "horarios", "horarios de inscripción"],
     horario: ["horario", "clases", "materias"],
-    biblioteca: ["biblioteca", "libros", "estudiar", "prestamo"],
-    serviciosEstudiantiles: ["servicios estudiantiles", "departamento", "administrativo"],
-    eventos: ["eventos", "actividades", "esta semana", "fin de semana"],
-    apoyo: ["estrés", "problemas", "ayuda", "emocional", "discapacidad", "consejería","apoyo"],
-    tutorias: ["tutoría", "tutoria", "asesoría", "asesoria", "rendimiento"],
+    biblioteca: ["biblioteca", "libros", "estudiar", "prestamo", "libro", "prestar", "leer", "estudio", "sala", 
+      "salas", "préstamo", "recursos", "campus"],
+    serviciosEstudiantiles: ["servicios estudiantiles", "departamento", "administrativo", "servicios", "estudiantiles",
+      "servicio", "estudiantil", "administración"],
+    eventos: ["eventos", "actividades", "esta semana", "fin de semana", "eventos", "proximos", "eventos próximos", "proximo",
+      "actividad", "actividad reciente"],
+    apoyo: ["estrés", "problemas", "ayuda", "emocional", "discapacidad", "consejería", "apoyo", "problema", "consejos", "mental",
+      "incapacidad", "discapacidad"],
+    tutorias: ["tutoría", "tutoria", "asesoría", "asesoria", "rendimiento", "acompañamiento", "materias"],
     carrera: ["pasantía", "pasantias", "práctica", "practicas", "profesional"],
-    curriculum: ["curriculum", "cv", "vitae", "hoja de vida"],
+    curriculum: ["curriculum", "cv", "vitae", "hoja de vida", "carrera"],
     entrevistas: ["entrevista", "trabajo", "laboral"],
-    clubes: ["club", "clubes", "extracurricular", "actividades"],
-    comida: ["comida", "alimentación", "cafetería", "cafeteria", "comer"],
+    clubes: ["club", "clubes", "extracurricular", "actividades", "extra", "juegos", "entretener", "entretenimiento"],
+    comida: ["comida", "alimentación", "cafetería", "cafeteria", "comer", "venta de comida", "venta", "chalets", "chalet"],
   }
 
   // Función para verificar si el mensaje contiene palabras clave
@@ -327,27 +337,31 @@ function getResponseByState(messages, sessionId) {
       switch (category) {
         case "calendario":
           return `El calendario académico de la Universidad Don Bosco para este semestre es:
-          - Inicio del semestre: ${universityInfo.calendario.inicioSemestre}
-          - Fin del semestre: ${universityInfo.calendario.finSemestre}
-          - Período de inscripciones: ${universityInfo.calendario.inscripciones}
-          - Exámenes parciales: ${universityInfo.calendario.examenesParciales}
-          - Exámenes finales: ${universityInfo.calendario.examenesFinales}
+          - <b>Inicio del semestre:</b> ${universityInfo.calendario.inicioSemestre}
+          - <b>Fin del semestre:</b> ${universityInfo.calendario.finSemestre}
+          - <b>Período de inscripciones:</b> ${universityInfo.calendario.inscripciones}
+          - <b>Exámenes parciales:</b> ${universityInfo.calendario.examenesParciales.join("\n")}
+          - <b>Exámenes finales:</b> ${universityInfo.calendario.examenesFinales}
           
           ¿Necesitas información adicional sobre alguna fecha específica?`
 
         case "biblioteca":
-          return `La ${universityInfo.biblioteca.nombre} está ubicada en ${universityInfo.biblioteca.ubicacion}.
-          Horario: ${universityInfo.biblioteca.horario}
-          Servicios disponibles: ${universityInfo.biblioteca.servicios.join(", ")}
+          return `La ${universityInfo.biblioteca.nombre} está ubicada en ${universityInfo.biblioteca.ubicacion}. <br>
+          - <b>Horario:</b> ${universityInfo.biblioteca.horario}
+          - <b>Servicios disponibles:</b> ${universityInfo.biblioteca.servicios.join("\n")}
+          - <b>Ubicación:<br><a href="${universityInfo.biblioteca.direccion}" 
+          target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/eFYMwBqn4v22NH2P7</a></b>
           
           ¿Te gustaría saber más sobre algún servicio específico?`
 
         case "serviciosEstudiantiles":
           return `El Departamento de Servicios Estudiantiles de la UDB está ubicado en ${universityInfo.serviciosEstudiantiles.ubicacion}
           Puedes contactarlos en:
-          - Email: ${universityInfo.serviciosEstudiantiles.contacto}
-          - Teléfono: ${universityInfo.serviciosEstudiantiles.telefono}
-          - Horario: ${universityInfo.serviciosEstudiantiles.horario}
+          - <b>Email:</b> ${universityInfo.serviciosEstudiantiles.contacto}
+          - <b>Teléfono:</b> ${universityInfo.serviciosEstudiantiles.telefono}
+          - <b>Horario:</b> ${universityInfo.serviciosEstudiantiles.horario}
+          - <b>Ubicación:<br><a href="${universityInfo.serviciosEstudiantiles.direccion}" 
+          target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/eFYMwBqn4v22NH2P7</a></b>
           
           ¿En qué te puedo ayudar específicamente?`
 
@@ -355,17 +369,21 @@ function getResponseByState(messages, sessionId) {
           return `La UDB ofrece varios servicios de apoyo estudiantil:
           
           Consejería Académica y Apoyo Emocional:
-          - Ubicación: ${universityInfo.apoyoEstudiantil.consejeriaAcademica.ubicacion}
-          - Horario: ${universityInfo.apoyoEstudiantil.consejeriaAcademica.horario}
-          - Servicios: ${universityInfo.apoyoEstudiantil.consejeriaAcademica.servicios.join(", ")}
+          - <b>Dirección:</b> ${universityInfo.apoyoEstudiantil.consejeriaAcademica.ubicacion}
+          - <b>Ubicación:<br><a href="${universityInfo.apoyoEstudiantil.consejeriaAcademica.direccion}" 
+          target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/eFYMwBqn4v22NH2P7</a></b>
+          - <b>Horario:</b> ${universityInfo.apoyoEstudiantil.consejeriaAcademica.horario}
+          - <b>Servicios:</b> ${universityInfo.apoyoEstudiantil.consejeriaAcademica.servicios.join("\n")}
           
-          ¿Te gustaría agendar una cita con un consejero? (Responde Sí para comenzar el proceso)`
+          ¿Te gustaría agendar una cita con un consejero? (Responde "Sí" para comenzar el proceso)`
 
         case "tutorias":
           return `El Centro de Tutorías de la UDB ofrece apoyo en:
-          - Ubicación: ${universityInfo.apoyoEstudiantil.tutorias.ubicacion}
-          - Materias disponibles: ${universityInfo.apoyoEstudiantil.tutorias.materias.join(", ")}
-          - Horario: ${universityInfo.apoyoEstudiantil.tutorias.horario}
+          - <b>Dirección:</b> ${universityInfo.apoyoEstudiantil.tutorias.ubicacion}
+          - <b>Ubicación:<br><a href="${universityInfo.apoyoEstudiantil.tutorias.direccion}" 
+          target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/eFYMwBqn4v22NH2P7</a></b>
+          - <b>Materias disponibles:</b>${universityInfo.apoyoEstudiantil.tutorias.materias.join("\n")}
+          - <b>Horario:</b> ${universityInfo.apoyoEstudiantil.tutorias.horario}
           
           ¿Te gustaría agendar una tutoría? (Responde Sí para comenzar el proceso)`
 
@@ -373,27 +391,31 @@ function getResponseByState(messages, sessionId) {
         case "curriculum":
         case "entrevistas":
           return `La oficina de Desarrollo Profesional de la UDB ofrece:
-          - Servicios: ${universityInfo.desarrolloProfesional.servicios.join(", ")}
-          - Talleres disponibles: 
-            ${universityInfo.desarrolloProfesional.talleres.join("\n            ")}
+          - <b>Servicios:</b> ${universityInfo.desarrolloProfesional.servicios.join("\n")}<br>
+          - <b>Talleres disponibles:</b> 
+            ${universityInfo.desarrolloProfesional.talleres.join("\n")}
           
-          ¿Te gustaría agendar una asesoría profesional? (Responde Sí para comenzar el proceso)`
+          ¿Te gustaría agendar una asesoría profesional? (Responde "Sí" para comenzar el proceso)`
 
         case "clubes":
-          return `Los clubes disponibles en la UDB son:
+          return `<b>Los clubes disponibles en la UDB son:</b>
           ${universityInfo.vidaEstudiantil.clubes.join("\n          ")}
           
           ¿Te gustaría más información sobre algún club en particular?`
 
         case "comida":
           return `Opciones de alimentación en el campus de la UDB:
-          Lugares disponibles: ${universityInfo.vidaEstudiantil.alimentacion.cafeterias.join(", ")}
-          Horario: ${universityInfo.vidaEstudiantil.alimentacion.horario}
+          - <b>Lugares disponibles:</b> ${universityInfo.vidaEstudiantil.alimentacion.cafeterias.join("\n")}
+          <br>- <b>Horarios:</b> ${universityInfo.vidaEstudiantil.alimentacion.horario}
+          <br>- <b>Ubicado por edificio 6:<br><a href="${universityInfo.vidaEstudiantil.alimentacion.direccion1}" 
+          target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/co1zy9QRm3vn89vUA</a></b>
+          <br>- <b>Ubicado por edificio C:<br><a href="${universityInfo.vidaEstudiantil.alimentacion.direccion2}" 
+          target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/wqcFYCbqefZ4nZay8</a></b>
           
           ¿Necesitas información sobre algún lugar específico?`
 
         case "eventos":
-          return `Próximos eventos importantes en la UDB:
+          return `<b>Próximos eventos importantes en la UDB:</b>
           ${universityInfo.vidaEstudiantil.eventos.join("\n          ")}
           
           ¿Te gustaría más detalles sobre algún evento en particular?`
