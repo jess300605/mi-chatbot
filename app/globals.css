@@ -4,21 +4,21 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 1%; /* Fondo negro */
+    --foreground: 0 0% 100%; /* Texto blanco */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 0% 50%; /* Negro */
+    --muted-foreground: 0 0% 100%; /* Blanco */
 
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 60%; /* Negro */
+    --primary-foreground: 210 40% 98%; /* Blanco */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215.4 16.3% 46.9%; /* Negro */
+    --secondary-foreground: 0 0% 100%; /* Blanco */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 0 0% 90%; /* Negro */
+    --input: 0 0% 100%; /* Negro */
+    --ring: 0 0% 70%; /* Negro */
 
     --radius: 0.5rem;
   }
@@ -26,10 +26,9 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border bg-background;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
-

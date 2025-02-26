@@ -342,7 +342,8 @@ function getResponseByState(messages, sessionId) {
           - <b>Período de inscripciones:</b> ${universityInfo.calendario.inscripciones}
           - <b>Exámenes parciales:</b> ${universityInfo.calendario.examenesParciales.join("\n")}
           - <b>Exámenes finales:</b> ${universityInfo.calendario.examenesFinales}
-          
+           
+          Para más información Sobre tus horarios, visita <a href="https://admacad.udb.edu.sv/EstudiantesPlus/MiHorario" target="da click" rel="noopener noreferrer" style="color: #ffffff; font-weight: bold;">Portal Web</a>.
           ¿Necesitas información adicional sobre alguna fecha específica?`
 
         case "biblioteca":
@@ -363,7 +364,10 @@ function getResponseByState(messages, sessionId) {
           - <b>Ubicación:<br><a href="${universityInfo.serviciosEstudiantiles.direccion}" 
           target="_blank" rel="noopener noreferrer" style="color: #d8d8d8; text-decoration: none;">https://maps.app.goo.gl/eFYMwBqn4v22NH2P7</a></b>
           
+             Para más información sobre otros servicios, visita <a href="https://admacad.udb.edu.sv/EstudiantesPlus/MiHorario" target="da click" rel="noopener noreferrer" style="color: #ffffff; font-weight: bold;">Portal Web</a>.<br>
+
           ¿En qué te puedo ayudar específicamente?`
+          
 
         case "apoyo":
           return `La UDB ofrece varios servicios de apoyo estudiantil:
